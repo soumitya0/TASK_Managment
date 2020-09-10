@@ -1,24 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import ListItems from "./components/Listitme";
+import DisplayList from "./components/DisplayList";
+import Register from "./components/Register";
+
+import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 
 function App() {
+  const [namePass, setNamePass] = useState("");
+  const [phonNumberPass, setPhonNumberPass] = useState("");
+
+  const getData = (name, phonNumber) => {
+    console.log("i am running getData");
+    console.log(name);
+    console.log(phonNumber);
+
+    setNamePass(name);
+    setPhonNumberPass(phonNumber);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/">
+            <Register sendData={getData} />
+          </Route>
+
+          <Route exact path="/users">
+            <DisplayList name={namePass} phonNumber={phonNumberPass} />
+          </Route>
+        </Switch>
+      </BrowserRouter>
     </div>
   );
 }
